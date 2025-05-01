@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дмитрий Львов | Linux engineer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2A5C82;
+            --secondary: #5BA4E6;
+            --light: #F5F9FC;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background: var(--light);
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 40px;
+        }
+
+        /* Левая панель */
+        .sidebar {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .photo {
+            width: 240px;
+            height: 280px;
+            border-radius: 30%;
+            object-fit: cover;
+            margin-bottom: 25px;
+            border: 5px solid var(--primary);
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: var(--primary);
+            font-size: 24px;
+            margin: 0 10px;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary);
+        }
+
+        /* Основной контент */
+        .main-content {
+            padding: 30px 0;
+        }
+
+        section {
+            margin-bottom: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            color: var(--secondary);
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+        }
+
+        .project-card {
+            margin-bottom: 25px;
+            padding: 20px;
+            border-left: 4px solid var(--primary);
+            transition: 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateX(10px);
+            background: #f8f8f8;
+        }
+
+        .certificates {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .certificate-item {
+            text-align: center;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                margin-bottom: 30px;
+            }
+        }
+        .contact-info {
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .contact-item i {
+            width: 30px;
+            text-align: center;
+            margin-right: 12px;
+            color: var(--primary);
+        }
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .badge {
+            background: var(--primary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+        }
+
+        .badge i {
+            margin-right: 7px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <img src="photo.jpg" alt="Мое фото" class="photo">
+            <h1>Lvov Dmitriy</h1>
+            <p>Linux engineer</p>
+            <p> </p>
+            <p class="nickname">oditynet</p>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>oditynet@gmail.com</span>
+                </div>
+                
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Москва, Россия</span>
+                </div>
+
+                <div class="contact-item">
+                    <i class="fas fa-heart"></i>
+                    <span>Enduro, drive, travel and build</span>
+                </div>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://github.com/oditynet"><i class="fab fa-github"></i></a>
+                <a href="@oditynet"><i class="fab fa-telegram"></i></a>
+            </div>
+            
+            
+        </aside>
+
+        <main class="main-content">
+            <section id="about">
+                <h2>Обо мне</h2>
+                <p>Привет! Я интузиаст, который пытается разобраться в мире ИТ. По фану дизассемблирую код, пишу эксплоиты, аддоны и ищу себя... Обожаю траблшутить и 'programming for fun'</p>
+            </section>
+
+            <section id="projects">
+                <h2>Текущая работа</h2>
+                <div class="project-card">
+                    <h3>Большие данные</h3>
+                    <p> Arenadata hadoop, Greenplum.</p>
+                    <p><strong>Tags:</strong> Postgres, Greenplum, Altlinux</p>
+                </div>
+                
+                <div class="project-card">
+                    <h3>Виртуализация</h3>
+                    <p>Импортозамещенная виртуализация Скала-Р (росплатформа), K8s: разработка, доработка функционала, внедрение в гос.корпорациях и дальнейшая поддержка</p>
+                    <p><strong>Tags:</strong> зоопарк </p>
+                </div>
+            </section>
+
+            <section id="certificates">
+                <h2>Сертификаты</h2>
+                <div class="certificates">
+                    <div class="certificate-item">
+                        <i class="fas fa-certificate fa-3x" style="color: var(--primary);"></i>
+                        <h4>Red Hat Certified System Administrator exam | EX200</h4>
+                        <p>Moscow, 2019</p>
+                    </div>
+                    <div class="certificate-item">
+                        <i class="fas fa-certificate fa-3x" style="color: var(--primary);"></i>
+                        <h4>Alt linux administrator</h4>
+                        <p>Moscow, 2021</p>
+                    </div>
+                    <div class="certificate-item">
+                        <i class="fas fa-certificate fa-3x" style="color: var(--primary);"></i>
+                        <h4>Astra linux administrator</h4>
+                        <p>Moscow, 2021</p>
+                    </div>
+                    <div class="certificate-item">
+                        <i class="fas fa-certificate fa-3x" style="color: var(--primary);"></i>
+                        <h4>Dionis</h4>
+                        <p>Moscow, 2014</p>
+                    </div>
+                    <div class="certificate-item">
+                        <i class="fas fa-certificate fa-3x" style="color: var(--primary);"></i>
+                        <h4>Остальные сертификаты считаю незначительными</h4>
+                        <p>Moscow, 2024</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
