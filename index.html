@@ -4,339 +4,633 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lvov Dima | Linux engineer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary: #2A5C82;
-            --secondary: #5BA4E6;
-            --light: #F5F9FC;
+            --bg: #0d1117;
+            --bg-card: #161b22;
+            --bg-card-hover: #1c2330;
+            --border: #30363d;
+            --text: #c9d1d9;
+            --text-dim: #8b949e;
+            --accent: #58a6ff;
+            --accent-2: #3fb950;
+            --accent-glow: rgba(88, 166, 255, 0.15);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Roboto', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
 
         body {
-            background: var(--light);
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Roboto', sans-serif;
             line-height: 1.6;
-            color: #333;
+            overflow-x: hidden;
         }
 
-        .container {
+        /* ---------- Липкое меню ---------- */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(13, 17, 23, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 20px;
+        }
+
+        .navbar-inner {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 40px;
-        }
-
-        /* Левая панель */
-        .sidebar {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        .photo {
-            width: 240px;
-            height: 300px;
-            border-radius: 30%;
-            object-fit: cover;
-            margin-bottom: 5px;
-            border: 5px solid var(--primary);
-        }
-
-        .social-links {
-            margin-top: 10px;
-        }
-
-        .social-links a {
-            color: var(--primary);
-            font-size: 24px;
-            margin: 0 10px;
-            transition: 0.3s;
-        }
-
-        .social-links a:hover {
-            color: var(--secondary);
-        }
-
-        /* Основной контент */
-        .main-content {
-            padding: 30px 0;
-        }
-
-        section {
-            margin-bottom: 40px;
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.05);
-        }
-
-        h1 {
-            color: var(--primary);
-            font-size: 2.5em;
-            margin-bottom: 15px;
-        }
-
-        h2 {
-            color: var(--secondary);
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 10px;
-            margin-bottom: 25px;
-        }
-
-        .project-card {
-            margin-bottom: 25px;
-            padding: 20px;
-            border-left: 4px solid var(--primary);
-            transition: 0.3s;
-        }
-
-        .project-card:hover {
-            transform: translateX(10px);
-            background: #f8f8f8;
-        }
-
-        .certificates {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             gap: 20px;
         }
 
-        .certificate-item {
-            text-align: center;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
+        .navbar-brand {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            color: var(--accent);
+            font-size: 1.1em;
         }
 
-        /* Адаптивность */
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-            
-            .sidebar {
-                margin-bottom: 30px;
-            }
+        .navbar-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
         }
-        .contact-info {
-            margin: 25px 0;
-            text-align: left;
+
+        .navbar-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.95em;
+            transition: color 0.2s;
         }
+
+        .navbar-links a:hover { color: var(--accent); }
+
+        /* ---------- Контейнер ---------- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 40px;
+        }
+
+        /* ---------- Сайдбар ---------- */
+        .sidebar {
+            background: var(--bg-card);
+            padding: 30px 25px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            text-align: center;
+            height: fit-content;
+            position: sticky;
+            top: 80px;
+        }
+
+        .photo-wrapper {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        }
+
+        .photo {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            background: var(--bg);
+        }
+
+        .sidebar h1 {
+            font-size: 1.5em;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .nickname {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent);
+            font-size: 0.95em;
+            margin-bottom: 20px;
+        }
+
+        .contact-info { text-align: left; margin-bottom: 20px; }
 
         .contact-item {
             display: flex;
             align-items: center;
-            margin-bottom: 15px;
-            padding: 8px;
-            background: #f8f9fa;
+            padding: 8px 10px;
+            margin-bottom: 8px;
+            background: rgba(88, 166, 255, 0.05);
             border-radius: 8px;
+            font-size: 0.9em;
         }
 
         .contact-item i {
-            width: 30px;
+            width: 22px;
             text-align: center;
-            margin-right: 12px;
-            color: var(--primary);
+            margin-right: 10px;
+            color: var(--accent);
         }
 
-        .badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
+        .social-links { margin-top: 15px; }
+
+        .social-links a {
+            color: var(--text-dim);
+            font-size: 22px;
+            margin: 0 10px;
+            transition: all 0.3s;
+            display: inline-block;
         }
 
-        .badge {
-            background: var(--primary);
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.9em;
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* ---------- Основной контент ---------- */
+        .main-content { min-width: 0; }
+
+        section {
+            margin-bottom: 40px;
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        section.visible { opacity: 1; transform: translateY(0); }
+
+        h2 {
+            color: #fff;
+            font-size: 1.4em;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
+            gap: 10px;
         }
 
-        .badge i {
-            margin-right: 7px;
+        h2::before {
+            content: '';
+            width: 4px;
+            height: 22px;
+            background: linear-gradient(180deg, var(--accent), var(--accent-2));
+            border-radius: 2px;
+        }
+
+        h2 i { color: var(--accent); font-size: 0.9em; }
+
+        /* ---------- Категории проектов ---------- */
+        .project-group {
+            margin-bottom: 30px;
+        }
+
+        .project-group:last-child { margin-bottom: 0; }
+
+        .group-title {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-2);
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 12px;
+        }
+
+        .project-card {
+            padding: 15px 18px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            transition: all 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 3px;
+            background: var(--accent);
+            opacity: 0;
+            transition: opacity 0.25s;
+        }
+
+        .project-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--accent);
+            transform: translateX(5px);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .project-card:hover::before { opacity: 1; }
+
+        .project-card h3 {
+            font-size: 1em;
+            margin-bottom: 6px;
+        }
+
+        .project-card h3 a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .project-card h3 a:hover { color: #fff; }
+
+        .project-card p {
+            font-size: 0.85em;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+
+        .tags {
+            margin-top: 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7em;
+            padding: 2px 8px;
+            background: rgba(88, 166, 255, 0.1);
+            color: var(--accent);
+            border-radius: 4px;
+        }
+
+        /* ---------- Таймлайн сертификатов ---------- */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px; top: 5px; bottom: 5px;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent), var(--accent-2));
+            opacity: 0.4;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 22px;
+            padding-left: 10px;
+        }
+
+        .timeline-item:last-child { margin-bottom: 0; }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -26px; top: 6px;
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            background: var(--bg);
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .timeline-year {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-2);
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .timeline-title {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .timeline-sub {
+            color: var(--text-dim);
+            font-size: 0.85em;
+        }
+
+        /* ---------- About ---------- */
+        .about-text {
+            color: var(--text);
+            font-size: 0.95em;
+            margin-bottom: 15px;
+        }
+
+        .skill-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .skill-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8em;
+            padding: 5px 12px;
+            background: rgba(88, 166, 255, 0.08);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: var(--text);
+            transition: all 0.2s;
+        }
+
+        .skill-badge:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* ---------- Адаптивность ---------- */
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; gap: 25px; }
+            .sidebar { position: static; }
+            .navbar-links { gap: 12px; font-size: 0.9em; }
+        }
+
+        @media (max-width: 500px) {
+            .navbar-inner { flex-direction: column; gap: 8px; }
+            section { padding: 20px; }
+            .project-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
+
+    <!-- Липкое меню -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <span class="navbar-brand">~/oditynet</span>
+            <div class="navbar-links">
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#working">Working on</a>
+                <a href="#certificates">Certificates</a>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
+        <!-- Сайдбар -->
         <aside class="sidebar">
-            <img src="photo.jpg" alt="Мое фото" class="photo">
+            <div class="photo-wrapper">
+                <img src="photo.jpg" alt="Мое фото" class="photo">
+            </div>
             <h1>Lvov Dmitriy</h1>
-            <p>Linux engineer</p>
-            <p> </p>
-            <p class="nickname">oditynet</p>
+            <p class="nickname">@oditynet · Linux engineer</p>
 
             <div class="contact-info">
                 <div class="contact-item">
                     <i class="fas fa-envelope"></i>
                     <span>oditynet@gmail.com</span>
                 </div>
-                
                 <div class="contact-item">
                     <i class="fas fa-map-marker-alt"></i>
                     <span>Moscow, Russia</span>
                 </div>
-
                 <div class="contact-item">
                     <i class="fas fa-heart"></i>
-                    <span>Enduro, drive, travel and build</span>
+                    <span>Enduro, drive, travel & build</span>
                 </div>
             </div>
-            
+
             <div class="social-links">
-                <a href="https://github.com/oditynet"><i class="fab fa-github"></i></a>
-                <a href="@oditynet"><i class="fab fa-telegram"></i></a>
+                <a href="https://github.com/oditynet" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://t.me/oditynet" target="_blank"><i class="fab fa-telegram"></i></a>
             </div>
-            
-            
         </aside>
 
+        <!-- Основной контент -->
         <main class="main-content">
+
+            <!-- About -->
             <section id="about">
-                <h2>About me</h2>
-                <p>Hello! I am an enthusiast who is trying to understand the world of IT. For fun I disassemble code, write exploits, addons and search for myself... I love to make troubleshooting jokes and 'programming for fun'</p>
+                <h2><i class="fas fa-user-astronaut"></i>About me</h2>
+                <p class="about-text">
+                    Hello! I am an enthusiast who is trying to understand the world of IT.
+                    For fun I disassemble code, write exploits, addons and search for myself...
+                    I love to make troubleshooting jokes and 'programming for fun'.
+                </p>
+                <div class="skill-badges">
+                    <span class="skill-badge">Linux</span>
+                    <span class="skill-badge">Python</span>
+                    <span class="skill-badge">Bash</span>
+                    <span class="skill-badge">K8s</span>
+                    <span class="skill-badge">libvirt</span>
+                    <span class="skill-badge">Postgres</span>
+                    <span class="skill-badge">Greenplum</span>
+                    <span class="skill-badge">Android</span>
+                </div>
             </section>
 
+            <!-- Projects -->
             <section id="projects">
-                <h2> Top my projects</h2>
-                
-                <div class="project-card">
-                    <h3>Top -7: <a href="https://github.com/oditynet/chacha">chacha</a></h3>
-                    <p>Рабочий стол моего android. </p>
+                <h2><i class="fas fa-code"></i>Projects</h2>
+
+                <!-- Android -->
+                <div class="project-group">
+                    <div class="group-title"><i class="fab fa-android"></i> Android</div>
+                    <div class="project-grid">
+                        <div class="project-card">
+                            <h3><a href="https://github.com/oditynet/chacha">chacha</a></h3>
+                            <p>Рабочий стол моего android.</p>
+                            <div class="tags"><span class="tag">Android</span></div>
+                        </div>
+                        <div class="project-card">
+                            <h3><a href="https://github.com/oditynet/AndroidSpamBlock">AndroidSpamBlock</a></h3>
+                            <p>Мое дитя в эпоху борьбы со спамом. Вырос в целый телефон с консенсусом и телефонной книжкой.</p>
+                            <div class="tags"><span class="tag">Android</span><span class="tag">Kotlin</span></div>
+                        </div>
+                        <div class="project-card">
+                            <h3><a href="https://github.com/oditynet/keyPi">keyPi</a></h3>
+                            <p>Моя клавиатура для android.</p>
+                            <div class="tags"><span class="tag">Android</span></div>
+                        </div>
+                    </div>
                 </div>
 
+                <!-- Security -->
+                <div class="project-group">
+                    <div class="group-title"><i class="fas fa-shield-halved"></i> Security</div>
+                    <div class="project-grid">
+                        <div class="project-card">
+                            <h3><a href="https://github.com/oditynet/virusSTOP">virusSTOP</a></h3>
+                            <p>Why should I install Kaspersky when I have kernel sources?</p>
+                            <div class="tags"><span class="tag">Linux</span><span class="tag">Kernel</span></div>
+                        </div>
+                        <div class="project-card">
+                            <h3><a href="https://github.com/oditynet/sleepall">sleepall</a></h3>
+                            <p>I always go against the crowd and against the system. (P.S.: Bug is really)</p>
+                            <div class="tags"><span class="tag">Security</span></div>
+                        </div>
+                        <div class="project-card">
+                            <h3><a href="https://github.com/oditynet/2fact-telegram">2fact-telegram</a></h3>
+                            <p>2f is gaining popularity. It's time for me to join its ranks.</p>
+                            <div class="tags"><span class="tag">Telegram</span><span class="tag">2FA</span></div>
+                        </div>
+                        <div class="project-card">
+                            <h3><a href="https://github.com/oditynet/bruteforce_sha512">bruteforce_sha512</a></h3>
+                            <p>This is my dream since childhood. I have implemented my botnet. It remains to find 1000 enthusiasts to work.</p>
+                            <div class="tags"><span class="tag">C</span><span class="tag">SHA-512</span></div>
+                        </div>
+                    </div>
+                </div>
 
-                <div class="project-card">
-                    <h3>Top -6: <a href="https://github.com/oditynet/AndroidSpamBlock">AndroidSpamBlock</a></h3>
-                    <p>Ну а это мое дитя в эпоху борьбы со спамом. Проект перерос себя и вырос в целый телефон консенсусем и телефонной книжкой. Напихал кучу, а вот тестировать все сил нету.</p>
-                </div>
-                
-                <div class="project-card">
-                    <h3>Top -5: <a href="https://github.com/oditynet/3phase380">3phase380</a></h3>
-                    <p>Платформа для моделирования электрощита и квартиры с визуальными эффектами и плюшками.</p>
-                </div>
-                
-                <div class="project-card">
-                    <h3>Top -4: <a href="https://github.com/oditynet/coospohrm">coospohrm</a></h3>
-                    <p>Это спортивный датчик сердца. Помогает тренировкаться в разных нагрузочных зонах.</p>
+                <!-- Infrastructure -->
+                <div class="project-group">
+                    <div class="group-title"><i class="fas fa-server"></i> Infrastructure</div>
+                    <div class="project-grid">
+                        <div class="project-card">
+                            <h3><a href="https://github.com/oditynet/3phase380">3phase380</a></h3>
+                            <p>Платформа для моделирования электрощита и квартиры с визуальными эффектами и плюшками.</p>
+                            <div class="tags"><span class="tag">Simulation</span></div>
+                        </div>
+                        <div class="project-card">
+                            <h3><a href="https://github.com/oditynet/moscow_bills">moscow_bills</a></h3>
+                            <p>Every month you pay for water, utilities, electricity bills, year after year.</p>
+                            <div class="tags"><span class="tag">Automation</span></div>
+                        </div>
+                        <div class="project-card">
+                            <h3><a href="https://github.com/oditynet/express-dmz-bot">express-dmz-bot</a></h3>
+                            <p>Первый бот на eXpress.ms с TLS и webhook.</p>
+                            <div class="tags"><span class="tag">TLS</span><span class="tag">Webhook</span></div>
+                        </div>
+                    </div>
                 </div>
 
-                
-                <div class="project-card">
-                    <h3>Top -3: <a href="https://github.com/oditynet/keyPi">keyPi</a></h3>
-                    <p> Моя клавиатура для android</p>
-                </div>
-
-               <div class="project-card">
-                    <h3>Top -2: <a href="https://github.com/oditynet/express-dmz-bot">express-dmz-bot</a></h3>
-                    <p> Первый бот на eXpress.ms с TLS и webhook</p>
-                </div>
-                
-                
-                <div class="project-card">
-                    <h3>Top -1: <a href="https://github.com/oditynet/virusSTOP">virusSTOP</a></h3>
-                    <p> Why should I install Kaspersky when I have kernel sources?</p>
-                </div>
-                
-                <div class="project-card">
-                    <h3>Top 0: <a href="https://github.com/oditynet/Fass">Fass</a></h3>
-                    <p> This is my precious.</p>
-                </div>
-                
-                <div class="project-card">
-                    <h3>Top 1: <a href="https://github.com/oditynet/seetoprice">Seetoprice</a></h3>
-                    <p> It was funny for me to watch how prices change on popular marketplaces and buy goods from there at the lowest price.</p>
-                </div>
-                  <div class="project-card">
-                    <h3>Top 2: <a href="https://github.com/oditynet/moscow_bills">moscow_bills</a></h3>
-                    <p> Every month you pay for water, utilities, electricity bills, and so on year after year.</p>
-                </div>
-                <div class="project-card">
-                    <h3>Top 3: <a href="https://github.com/oditynet/ooo">ooo</a></h3>
-                    <p> I found a photo on my computer that was 25 years old. I was upset to see how some of the pixels were lost on the disk and the photo had black pixels.</p>
-                </div>
-                <div class="project-card">
-                    <h3>Top 4: <a href="https://github.com/oditynet/sleepall">Sleepall</a></h3>
-                    <p> I always go against the crowd and against the system. Once I wanted to teach a lesson to an upstart from the security department, but my beloved boss did not allow it.(P.S.: Bug is really)</p>
-                </div>
-                <div class="project-card">
-                    <h3>Top 5: <a href="https://github.com/oditynet/enru_change">enru_change</a></h3>
-                    <p> It was fun to study the N-gram and even participate in its creation. It was based on Dantsova's books and science fiction.</p>
-                </div> 
-                <div class="project-card">
-                    <h3>Top 6: <a href="https://github.com/oditynet/crossword">Crossword</a></h3>
-                    <p> A good way to learn a language is to write something important in it. Mom wanted to make money by creating crosswords and publishing them, and at that time there were no ready-made solutions</p>
-                </div>
-                <div class="project-card">
-                    <h3>Top 7: <a href="https://github.com/oditynet/2fact-telegram">2fact-telegram</a></h3>
-                    <p> 2f is gaining popularity. It's time for me to join its ranks.</p>
-                </div>
-                <div class="project-card">
-                    <h3>Top 8: <a href="https://github.com/oditynet/bruteforce_sha512">bruteforce_sha512</a></h3>
-                    <p> This is my dream since childhood. I have implemented my botnet. It remains to find 1000 enthusiasts to work.</p>
+                <!-- Fun & Data -->
+                <div class="project-group">
+                    <div class="group-title"><i class="fas fa-flask"></i> Fun &amp; Data</div>
+                    <div class="project-grid">
+                        <div class="project-card">
+                            <h3><a href="https://github.com/oditynet/coospohrm">coospohrm</a></h3>
+                            <p>Спортивный датчик сердца. Помогает тренироваться в разных нагрузочных зонах.</p>
+                            <div class="tags"><span class="tag">Health</span></div>
+                        </div>
+                        <div class="project-card">
+                            <h3><a href="https://github.com/oditynet/seetoprice">seetoprice</a></h3>
+                            <p>It was funny to watch how prices change on popular marketplaces and buy at the lowest price.</p>
+                            <div class="tags"><span class="tag">Parsing</span></div>
+                        </div>
+                        <div class="project-card">
+                            <h3><a href="https://github.com/oditynet/ooo">ooo</a></h3>
+                            <p>Found a 25-year-old photo with lost pixels. Restored what I could.</p>
+                            <div class="tags"><span class="tag">Image</span></div>
+                        </div>
+                        <div class="project-card">
+                            <h3><a href="https://github.com/oditynet/enru_change">enru_change</a></h3>
+                            <p>Изучал N-граммы. Базировалось на книгах Данцовой и научной фантастике.</p>
+                            <div class="tags"><span class="tag">NLP</span></div>
+                        </div>
+                        <div class="project-card">
+                            <h3><a href="https://github.com/oditynet/crossword">crossword</a></h3>
+                            <p>A good way to learn a language is to write something important in it.</p>
+                            <div class="tags"><span class="tag">NLP</span></div>
+                        </div>
+                    </div>
                 </div>
             </section>
-            <section id="projects">
-                <h2> I’m currently working on:</h2>
-                <div class="project-card">
-                    <h3>Big data</h3>
-                    <p> Arenadata hadoop, Greenplum.</p>
-                    <p><strong>Tags:</strong> Postgres, Greenplum, Altlinux</p>
-                </div>
-                
-                <div class="project-card">
-                    <h3>Virtualization</h3>
-                    <p>Virtualization Skala-R (Rosplatform), K8s: Development, Functionality Refinement, Implementation in State Corporations and Further Support</p>
-                    <p><strong>Tags:</strong> Python, Bash, K8s, libvirt </p>
-                </div>
 
+            <!-- Currently working on -->
+            <section id="working">
+                <h2><i class="fas fa-briefcase"></i>I'm currently working on</h2>
+                <div class="project-grid">
+                    <div class="project-card">
+                        <h3>Big Data</h3>
+                        <p>Arenadata Hadoop, Greenplum.</p>
+                        <div class="tags">
+                            <span class="tag">Postgres</span>
+                            <span class="tag">Greenplum</span>
+                            <span class="tag">Altlinux</span>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                        <h3>Virtualization</h3>
+                        <p>Virtualization Skala-R (Rosplatform), K8s: development, functionality refinement, implementation in state corporations and further support.</p>
+                        <div class="tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">Bash</span>
+                            <span class="tag">K8s</span>
+                            <span class="tag">libvirt</span>
+                        </div>
+                    </div>
+                </div>
             </section>
+
+            <!-- Certificates -->
             <section id="certificates">
-                <h2>Certificates</h2>
-                <div class="certificates">
-                    <div class="certificate-item">
-                        <i class="fas fa-certificate fa-3x" style="color: var(--primary);"></i>
-                        <h4>Red Hat Certified System Administrator exam | EX200</h4>
-                        <p>Moscow, 2019</p>
+                <h2><i class="fas fa-certificate"></i>Certificates</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">2024</div>
+                        <div class="timeline-title">I consider the rest of the certificates unimportant.</div>
+                        <div class="timeline-sub">Moscow</div>
                     </div>
-                    <div class="certificate-item">
-                        <i class="fas fa-certificate fa-3x" style="color: var(--primary);"></i>
-                        <h4>Alt linux administrator</h4>
-                        <p>Moscow, 2021</p>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2021</div>
+                        <div class="timeline-title">Alt Linux administrator</div>
+                        <div class="timeline-sub">Moscow</div>
                     </div>
-                    <div class="certificate-item">
-                        <i class="fas fa-certificate fa-3x" style="color: var(--primary);"></i>
-                        <h4>Astra linux administrator</h4>
-                        <p>Moscow, 2021</p>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2021</div>
+                        <div class="timeline-title">Astra Linux administrator</div>
+                        <div class="timeline-sub">Moscow</div>
                     </div>
-                    <div class="certificate-item">
-                        <i class="fas fa-certificate fa-3x" style="color: var(--primary);"></i>
-                        <h4>Dionis</h4>
-                        <p>Moscow, 2014</p>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2019</div>
+                        <div class="timeline-title">Red Hat Certified System Administrator (EX200)</div>
+                        <div class="timeline-sub">Moscow</div>
                     </div>
-                    <div class="certificate-item">
-                        <i class="fas fa-certificate fa-3x" style="color: var(--primary);"></i>
-                        <h4>I consider the rest of the certificates unimportant.</h4>
-                        <p>Moscow, 2024</p>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2014</div>
+                        <div class="timeline-title">Dionis</div>
+                        <div class="timeline-sub">Moscow</div>
                     </div>
                 </div>
             </section>
+
         </main>
     </div>
+
+    <script>
+        // Плавное появление секций при скролле
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
 </body>
 </html>
